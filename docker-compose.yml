@@ -1,0 +1,20 @@
+
+services:
+  fluentd:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: fluentd:latest
+    container_name: fluentd
+    environment:
+      - HOST=${HOST}
+      - PORT=${PORT}
+      - DATABASE=${DATABASE}
+      - USERNAME_DB=${USERNAME_DB}
+      - PASSWORD=${PASSWORD}
+    ports:
+      - "24224:24224"
+      - "9880:9880"
+    restart: unless-stopped
+    volumes:
+      - ./fluent.conf:/fluentd/etc/fluent.conf          
